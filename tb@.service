@@ -1,0 +1,23 @@
+[Unit]
+Description=User Space Tunnel Broker
+After=network.target
+
+[Service]
+Type=simple
+EnvironmentFile=/etc/tb-userspace/%I.conf
+ExecStart=/usr/local/bin/tb-userspace $INT $SERVER $LOCAL sit
+ExecStartPost=/bin/sleep 3s
+ExecStartPost=/bin/ip link set $INT up mtu $MTU
+ExecStartPost=/bin/ip -6 addr add $ADDR64 dev $INT
+ExecStartPost=-/bin/ip -6 addr add $ADDR48 dev $INT
+ExecStartPost=-/bin/ip -6 rule add to $ADDR48 lookup main pref 1000
+ExecStartPost=-/bin/ip -6 rule add from $ADDR48 lookup $INT pref 2000
+ExecStartPost=/bin/ip -6 rule add from $ADDR64 lookup $INT pref 2000
+ExecStartPost=/bin/ip -6 route add default dev $INT table $INT
+ExecStopPost=-/bin/ip -6 rule del to $ADDR48 lookup main pref 1000
+ExecStopPost=-/bin/ip -6 rule del from $ADDR48 lookup $INT pref 2000
+ExecStopPost=/bin/ip -6 rule del from $ADDR64 lookup $INT pref 2000
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
