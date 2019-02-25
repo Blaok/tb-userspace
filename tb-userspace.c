@@ -149,7 +149,7 @@ int main(int argc, char  *argv[])
         in_addr_t remote_ip;
         char tun_name[IFNAMSIZ];
 	if (argc!=5) {
-		printf("Useage:%s tun_name remote_ipv4 local_ipv4 mode\r\n",argv[0]);
+		printf("Usage:%s tun_name remote_ipv4 local_ipv4 mode\r\n",argv[0]);
 		return 1;
 	}
         strcpy(tun_name, argv[1]);
