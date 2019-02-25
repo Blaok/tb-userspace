@@ -33,6 +33,6 @@ sudo systemctl enable tb@someconfig
 
 ## Notes
 
-The makefile will add a `10 tb` entry to `/etc/iproute/rt_tables` when `make install` and remove any `10 tb` line when `make uninstall`. Make sure there is no conflict with exsiting `rt_tables`.
+The makefile will add a `10 tb` entry to `/etc/iproute/rt_tables` when `make install` and remove any `10 tb` line when `make uninstall`. Make sure there is no conflict with existing `rt_tables`.
 
 The tb-userspace source code is obtained from `https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/tb-tun/tb-tun_r18.tar.gz`. I commented out line 106 and 142 to avoid unnecessary debugging information. Besides, I renamed it from `tb_userspace.c` to `tb-userspace.c`.
